@@ -1,5 +1,5 @@
 function isUrl(val = '') {
-    if (/^http(s?):\/\//.test(val) || val.includes('.') && val.substr(0, 1) !== ' ') return true;
+    if (/^(https?:\/\/)?[^\s\/:\.]+(\.[^\s\.]+)*\.[^\s\d\.]{2,}(\/[^\s]+)?$/.test(val)) return true;
     return false;
 };
 

@@ -16,7 +16,7 @@ class xor {
 };
 
 function isUrl(val = '') {
-    if (/^http(s?):\/\//.test(val) || val.includes('.') && val.substr(0, 1) !== ' ') return true;
+    if (/^(https?:\/\/)?[^\s\/:\.]+(\.[^\s\.]+)*\.[^\s\d\.]{2,}(\/[^\s]+)?$/.test(val)) return true;
     return false;
 };
 
@@ -26,14 +26,8 @@ function ser() {
     window.parent.document.getElementById("searchbar").value = url;
     let safeSearch = localStorage.getItem("ss");
     if(safeSearch === null) {
-        if (!isUrl(url)) url = 'https://searx.priv.pw/search?q=' + url + "&safesearch=0";
-    } else if(safeSearch === "ss_0") {
-        if (!isUrl(url)) url = 'https://searx.priv.pw/search?q=' + url + "&safesearch=0";
-    } else if(safeSearch === "ss_1") {
-        if (!isUrl(url)) url = 'https://searx.priv.pw/search?q=' + url + "&safesearch=1";
-    } else if(safeSearch === "ss_2") {
-        if (!isUrl(url)) url = 'https://searx.priv.pw/search?q=' + url + "&safesearch=2";
-    }
+        if (!isUrl(url)) url = `https://searx.priv.pw/search?q=${url}&safesearch=${safeSearch}`;
+    }    
     window.open("sw" + "/" + xor.encode(url), "_self");
 }
 
